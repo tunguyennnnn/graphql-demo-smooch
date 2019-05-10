@@ -1,0 +1,47 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "tsc": "tsc",
+    "dev": "cross-env NODE_ENV=development && nodemon app/index.js --exec babel-node",
+    "socket-dev": "cross-env NODE_ENV=development && nodemon app2/index.js --exec babel-node",
+    "build": "rimraf ./build && babel . --ignore node_modules,test --out-dir build",
+    "prod:local": "cross-env NODE_ENV=production && node ./build/app/index.js",
+    "prod": "cross-env NODE_ENV=production && node ./app/index.js"
+  },
+  "dependencies": {
+    "@babel/polyfill": "^7.2.5",
+    "apollo-server-express": "^2.4.6",
+    "bcrypt-nodejs": "^0.0.3",
+    "body-parser": "^1.18.3",
+    "cors": "^2.8.5",
+    "cross-env": "^5.2.0",
+    "dotenv": "^6.2.0",
+    "express": "^4.16.4",
+    "graphql": "^14.1.1",
+    "graphql-middleware": "^3.0.2",
+    "graphql-tools": "^4.0.4",
+    "graphql-type-json": "^0.2.1",
+    "graphql-upload": "^8.0.4",
+    "jsonwebtoken": "^8.5.0",
+    "lodash": "^4.17.11",
+    "lowdb": "^1.0.0",
+    "merge-graphql-schemas": "^1.5.8",
+    "node-json-db": "^0.11.0",
+    "pg": "^7.8.0",
+    "sequelize": "^4.42.0",
+    "shortid": "^2.2.14",
+    "yup": "^0.27.0"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.2.3",
+    "@babel/core": "^7.3.3",
+    "@babel/node": "^7.2.2",
+    "@babel/preset-env": "^7.3.1",
+    "nodemon": "^1.18.10",
+    "prettier": "^1.16.4",
+    "rimraf": "^2.6.3"
+  }
+}
