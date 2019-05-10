@@ -8,50 +8,18 @@ import http from "http";
 import schema from "./schema";
 import resolvers from "./resolvers";
 
+// Database
 const FileSync = require("lowdb/adapters/FileSync");
 const adapter = new FileSync("../db.json");
 const db = low(adapter);
 
 db.defaults({
-  appUsers: [
-    {
-      name: "Tu",
-      age: 18
-    },
-    {
-      name: "Jm",
-      age: 20,
-      height: 1.87
-    },
-    {
-      name: "Andrew",
-      age: 19,
-      height: 1.9
-    },
-    {
-      name: "Mike",
-      age: 18,
-      height: 1.7
-    },
-    {
-      name: "Dhia",
-      age: 19,
-      height: 1.8
-    }
-  ],
+  appUsers: [],
   messages: [],
-  appMakers: [
-    {
-      name: "JP",
-      weight: 65.5
-    },
-    {
-      name: "Debie",
-      weight: 55
-    }
-  ]
+  appMakers: []
 }).write();
 
+// Graphql server
 const server = new ApolloServer({
   schema: makeExecutableSchema({ typeDefs: schema, resolvers }),
   context: async ({ req }) => {
@@ -59,10 +27,15 @@ const server = new ApolloServer({
   }
 });
 
+// Express
 const app = express();
 
 const httpServer = http.createServer(app);
+
+// Apply graphql middleware
 server.applyMiddleware({ app, path: "/graphql" });
+
+// Apply websocket
 server.installSubscriptionHandlers(httpServer);
 
 httpServer.listen(4000, function() {
